@@ -1,0 +1,18 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate*
+crash.log
+override.tf
+override.tf.json
+*.tfstate.backup
+*.tfstate.201*
+
+# Docker
+data/
+Dockerfile.nginx
+files/generate_status.sh  # We'll rebuild this in CI
+
+# Misc
+*.swp
+.DS_Store
