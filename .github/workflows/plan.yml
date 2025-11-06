@@ -33,3 +33,11 @@ jobs:
       with:
         name: tf-plan-dev
         path: tfplan
+
+    - name: Show Plan in PR Summary
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "### Terraform Plan (dev)" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`diff" >> $GITHUB_STEP_SUMMARY
+        terraform show -no-color tfplan >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
