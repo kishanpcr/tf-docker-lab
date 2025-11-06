@@ -1,0 +1,29 @@
+name: Terraform Apply (Prod)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Setup Docker
+      uses: docker/setup-buildx-action@v3
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Apply (Prod)
+      run: |
+        terraform workspace new prod || true
+        terraform workspace select prod
+        terraform apply -auto-approve
